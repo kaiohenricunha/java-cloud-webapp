@@ -16,11 +16,13 @@ public class CnpjConsultaApplication {
             return args -> {
                 if (args.length > 0) {
                     String cep = args[0];
-                    Endereco endereco = client.buscaEnderecoPor(cep);
-
-                    System.out.println(endereco);
+                    if(cep.matches("[0-9]+") && cep.length() == 8) {
+                        Endereco endereco = client.buscaEnderecoPor(cep);
+                        System.out.println(endereco);
+                    } else {
+                        System.out.println("CEP inválido.");
+                    }
                 }
             };
         }
-
 }

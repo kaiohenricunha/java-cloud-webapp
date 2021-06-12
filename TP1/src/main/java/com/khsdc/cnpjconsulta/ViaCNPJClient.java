@@ -5,14 +5,13 @@
  */
 package com.khsdc.cnpjconsulta;
 
-import com.khsdc.cnpjconsulta.Endereco;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class ViaCEPClient { 
-    public Endereco buscaEnderecoPor(String cep){
+public class ViaCNPJClient {
+    public CNPJ buscaEmpresaPor(String cnpj){
         RestTemplate template = new RestTemplate();
-        return template.getForObject("https://viacep.com.br/ws/{cep}/json",Endereco.class, cep);
+        return template.getForObject("https://receitaws.com.br/v1/cnpj/{cnpj}", CNPJ.class, cnpj);
     }
 }

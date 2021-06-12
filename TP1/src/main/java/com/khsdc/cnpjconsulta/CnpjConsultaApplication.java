@@ -12,15 +12,15 @@ public class CnpjConsultaApplication {
         SpringApplication.run(CnpjConsultaApplication.class, args);
     }
         @Bean
-        public CommandLineRunner run(ViaCEPClient client){
+        public CommandLineRunner run(ViaCNPJClient client){
             return args -> {
                 if (args.length > 0) {
-                    String cep = args[0];
-                    if(cep.matches("[0-9]+") && cep.length() == 8) {
-                        Endereco endereco = client.buscaEnderecoPor(cep);
-                        System.out.println(endereco);
+                    String cnpj = args[0];
+                    if(cnpj.matches("[0-9]+") && cnpj.length() == 14) {
+                        CNPJ empresa = client.buscaEmpresaPor(cnpj);
+                        System.out.println(empresa);
                     } else {
-                        System.out.println("CEP inválido.");
+                        System.out.println("CNPJ inválido.");
                     }
                 }
             };

@@ -14,11 +14,7 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @JsonProperty
-    private String cep;
-    @JsonProperty
     private String logradouro;
-    @JsonProperty
-    private String complemento;
     @JsonProperty
     private String bairro;
     @JsonProperty
@@ -28,12 +24,16 @@ public class Endereco {
     @JsonProperty
     private boolean erro = false;
 
-    public String getCep() {
-        return cep;
+
+    public Endereco() {
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public Endereco(String logradouro, String bairro, String localidade, String uf, boolean erro) {
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+        this.erro = erro;
     }
 
     public String getLogradouro() {
@@ -42,14 +42,6 @@ public class Endereco {
 
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
     }
 
     public String getBairro() {
@@ -80,9 +72,7 @@ public class Endereco {
     public String toString() {
         if(erro == false) {
             return "Endereco{" +
-                    "cep='" + cep + '\'' +
                     ", logradouro='" + logradouro + '\'' +
-                    ", complemento='" + complemento + '\'' +
                     ", bairro='" + bairro + '\'' +
                     ", localidade='" + localidade + '\'' +
                     ", uf='" + uf + '\'' +

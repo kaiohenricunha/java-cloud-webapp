@@ -12,14 +12,25 @@ public class Usuario {
     @Column(name = "email", unique=true, length = 50)
     private String email;
     private String telefone;
+    private String cep;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false) // tudo que fizer no usuario vai cascatear para o endereço
     private Endereco endereco;
 
+    public Usuario() {
+    }
 
-    public Usuario(String nome, String email, String telefone, Endereco endereco) {
+    public Usuario(String nome, String email, String telefone, String cep) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.cep = cep;
+    }
+
+    public Usuario(String nome, String email, String telefone, String cep, Endereco endereco) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.cep = cep;
         this.endereco = endereco;
     }
 
@@ -63,6 +74,14 @@ public class Usuario {
         this.endereco = endereco;
     }
 
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -70,7 +89,7 @@ public class Usuario {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", telefone='" + telefone + '\'' +
-                ", endereco=" + endereco +
+                ", cep=" + cep +
                 '}';
     }
 }

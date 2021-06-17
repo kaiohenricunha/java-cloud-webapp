@@ -12,7 +12,7 @@ public class Usuario {
     @Column(name = "email", unique=true, length = 50)
     private String email;
     private String telefone;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true) // tudo que fizer no usuario vai cascatear para o endereço
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false) // tudo que fizer no usuario vai cascatear para o endereço
     private Endereco endereco;
 
 

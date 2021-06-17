@@ -25,6 +25,8 @@ public class Endereco {
     private String localidade;
     @JsonProperty
     private String uf;
+    @JsonProperty
+    private boolean erro = false;
 
     public String getCep() {
         return cep;
@@ -76,13 +78,16 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" +
-                "cep='" + cep + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", localidade='" + localidade + '\'' +
-                ", uf='" + uf + '\'' +
-                '}';
+        if(erro == false) {
+            return "Endereco{" +
+                    "cep='" + cep + '\'' +
+                    ", logradouro='" + logradouro + '\'' +
+                    ", complemento='" + complemento + '\'' +
+                    ", bairro='" + bairro + '\'' +
+                    ", localidade='" + localidade + '\'' +
+                    ", uf='" + uf + '\'' +
+                    '}';
+        }
+        else return "CEP inexistente";
     }
 }

@@ -49,7 +49,7 @@ public class UsuarioController {
         usuarioService.edit(nome, email, telefone, cep);
     }
 
-    @RequestMapping(value = "/editarEmail", method = RequestMethod.POST)
+    @RequestMapping(value = "/editarEmail", method = RequestMethod.PUT)
     public void editarEmail(@RequestParam("email") String email,
                             @RequestParam("novoemail") String novoemail) {
 

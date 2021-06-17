@@ -7,6 +7,8 @@ import com.infnet.tp3.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 
 @RestController
 public class UsuarioController {
@@ -34,7 +36,25 @@ public class UsuarioController {
 
     @RequestMapping(method = {RequestMethod.PUT}, value = "/alterarUsuario/{id}")
     public void update(@PathVariable Long id, @RequestBody Usuario u) {
+
         usuarioService.update(id, u);
     }
+
+    @RequestMapping(value = "/editarUsuario", method = RequestMethod.PUT)
+    public void editarUsuario(@RequestParam("nome") String nome,
+                         @RequestParam("email") String email,
+                         @RequestParam("telefone") String telefone,
+                         @RequestParam("cep") String cep) {
+
+        usuarioService.edit(nome, email, telefone, cep);
+    }
+
+    @RequestMapping(value = "/editarEmail", method = RequestMethod.POST)
+    public void editarEmail(@RequestParam("email") String email,
+                            @RequestParam("novoemail") String novoemail) {
+
+        usuarioService.editarEmail(email, novoemail);
+    }
+
     }
 

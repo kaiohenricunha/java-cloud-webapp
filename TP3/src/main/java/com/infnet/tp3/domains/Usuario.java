@@ -1,5 +1,7 @@
 package com.infnet.tp3.domains;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,25 +15,29 @@ public class Usuario {
     private String email;
     private String telefone;
     private String cep;
+    private String fileUrl;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false) // tudo que fizer no usuario vai cascatear para o endereço
     private Endereco endereco;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String telefone, String cep) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.cep = cep;
-    }
-
-    public Usuario(String nome, String email, String telefone, String cep, Endereco endereco) {
+    public Usuario(String nome, String email, String telefone, String cep, Endereco endereco,
+                   String fileUrl) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.cep = cep;
         this.endereco = endereco;
+        this.fileUrl = fileUrl;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
     public Long getId() {

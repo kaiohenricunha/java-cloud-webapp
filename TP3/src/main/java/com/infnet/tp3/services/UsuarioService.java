@@ -6,6 +6,8 @@ import com.infnet.tp3.domains.Usuario;
 import com.infnet.tp3.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -22,9 +24,9 @@ public class UsuarioService {
     }
 
     public Usuario register(String nome, String email, String telefone,
-                         String cep, Endereco endereco) {
+                         String cep, Endereco endereco, String fileUrl) {
 
-        return this.ur.save(new Usuario(nome, email, telefone, cep, endereco));
+        return this.ur.save(new Usuario(nome, email, telefone, cep, endereco, fileUrl));
     }
 
     public void update(Long id, Usuario u) {

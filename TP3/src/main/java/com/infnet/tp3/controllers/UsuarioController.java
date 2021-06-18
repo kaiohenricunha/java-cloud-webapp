@@ -1,13 +1,16 @@
 package com.infnet.tp3.controllers;
 
+import com.infnet.tp3.clients.AmazonClient;
 import com.infnet.tp3.clients.ViaCEPClient;
 import com.infnet.tp3.domains.Endereco;
 import com.infnet.tp3.domains.Usuario;
 import com.infnet.tp3.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
 
 
 @RestController
@@ -17,6 +20,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
     @Autowired
     private ViaCEPClient viaCEPClient;
+    @Autowired
+    private AmazonClient amazonClient;
 
     @RequestMapping(method = {RequestMethod.GET}, value = "/usuario/{email}")
     public Usuario findUserByEmail(@PathVariable String email) {
@@ -25,14 +30,22 @@ public class UsuarioController {
 
     @PostMapping("/registrarUsuario")
     public Usuario register(@RequestPart(value = "nome") String nome,
-                     @RequestPart(value = "email") String email,
-                     @RequestPart(value = "telefone") String telefone,
-                     @RequestPart(value = "cep") String cep){
+                            @RequestPart(value = "email") String email,
+                            @RequestPart(value = "telefone") String telefone,
+                            @RequestPart(value = "cep") String cep,
+                            @RequestPart(value = "mfile") MultipartFile mfile) throws IOException {
 
             Endereco endereco = viaCEPClient.buscaEnderecoPor(cep);
-            // implementar upload da foto
-            return usuarioService.register(nome, email, telefone, cep, endereco);
+
+            String fileUrl = amazonClient.uploadFile(mfile);
+
+            File file = amazonClient.convertMultiPartToFile(mfile);
+
+            amazonClient.uploadFileTos3bucket(fileUrl, file);
+
+            return usuarioService.register(nome, email, telefone, cep, endereco, fileUrl);
         }
+
 
     @RequestMapping(method = {RequestMethod.PUT}, value = "/alterarUsuario/{id}")
     public void update(@PathVariable Long id, @RequestBody Usuario u) {
@@ -55,6 +68,5 @@ public class UsuarioController {
 
         usuarioService.editarEmail(email, novoemail);
     }
-
     }
 

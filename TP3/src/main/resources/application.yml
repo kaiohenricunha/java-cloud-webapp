@@ -1,5 +1,5 @@
 amazonProperties:
   endpointUrl: https://s3.sa-east-1.amazonaws.com
-  accessKey: AKIAZQJ2XBVBGBSUD6P3
-  secretKey: 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
+  accessKey:
+  secretKey:
   bucketName: demo-infnet-nuvem-java
